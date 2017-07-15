@@ -172,7 +172,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onStart() {
         super.onStart();
         if(mAuth.getCurrentUser() != null){
-            Log.d(TAG, "onStart: you are already logged in ");
             goToTaskActivity();
         }
     }
@@ -230,8 +229,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void goToTaskActivity(){
-//        Intent intent = new Intent(this, TaskActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, ToDoItemActivity.class);
+        startActivity(intent);
     }
 
     private boolean isEmailValid(String email) {
