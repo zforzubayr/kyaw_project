@@ -35,6 +35,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.ProviderQueryResult;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -50,7 +51,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private static final int REQUEST_READ_CONTACTS = 0;
 
-  private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
@@ -58,11 +59,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     private String name = "";
+    public static FirebaseUser current_user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
+
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -171,7 +175,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onStart() {
         super.onStart();
-        if(mAuth.getCurrentUser() != null){
+        Log.d(TAG, "onStart: " + current_user);
+        current_user = mAuth.getCurrentUser();
+        Log.d(TAG, "onStart: " + current_user);
+        if(current_user != null){
             goToTaskActivity();
         }
     }
@@ -200,7 +207,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                             @Override
                                             public void onComplete(@NonNull Task<AuthResult> task) {
                                                 if (task.isSuccessful()) {
-                                                    String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                                    current_user = mAuth.getCurrentUser();
+                                                    String user_id = current_user.getUid();
                                                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                                                     database.
                                                             getReference("users").
@@ -371,8 +379,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         }
     }
-
-
 
 
 }
