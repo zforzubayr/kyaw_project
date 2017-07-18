@@ -14,7 +14,7 @@
         completions."
     </string>
     <string name="title_activity_task">TaskActivity</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Sign out</string>
     <string name="email_in_use">This email is already in use, use correct password or sign up with a different email.</string>
     <string name="try_again">Something went wrong, please try again later</string>
     <string name="title_required">Title (Required)</string>

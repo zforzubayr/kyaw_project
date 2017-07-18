@@ -3,6 +3,7 @@ package com.example.abdallaah.todolist.App;
 import android.content.Context;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +21,7 @@ public class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchLis
 
     //for override all intercept touch events,
     public RecyclerItemClickListener(Context context, final RecyclerView recyclerview, OnRecyclerClickListener mListener) {
+        Log.d(TAG, "RecyclerItemClickListener: starts");
         this.mListener = mListener;
         mGestureDetector = null;
     }
