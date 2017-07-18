@@ -1,8 +1,5 @@
 package com.example.abdallaah.todolist.App;
 
-/**
- * Created by abdAllaah on 7/18/17.
- */
 
 public class ToDo {
     private String title;

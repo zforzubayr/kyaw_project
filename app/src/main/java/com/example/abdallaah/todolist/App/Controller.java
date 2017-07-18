@@ -76,10 +76,10 @@ public class Controller extends LoginActivity{
     }
 
 
-    public void getTasksList(){
+    public ArrayList<ToDo> getTasksList(){
         Log.d(TAG, "getTasksList: starts");
-
         Log.d(TAG, "getTasksList: ends");
+        return toDoList;
 
     }
 

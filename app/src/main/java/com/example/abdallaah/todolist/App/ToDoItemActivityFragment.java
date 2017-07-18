@@ -67,12 +67,22 @@ public class ToDoItemActivityFragment extends Fragment implements RecyclerItemCl
         RecyclerView recyclerView =  view.findViewById(R.id.tasks_list_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        recyclerViewAdapter = new RecyclerViewAdapter(new ArrayList<ToDo>());
 
         //todo use recycleviewadapters load new data
 
         Controller newController = new Controller();
-        newController.getTasksList();
+
+        Log.d(TAG, "onCreateView: Controller called");
+        ArrayList<ToDo> toDoList = newController.getTasksList();
+
+        if(toDoList != null && toDoList.size() > 0){
+            Log.d(TAG, "onCreateView: todoList size" +  toDoList.size());
+        }
+        else{
+            Log.d(TAG, "onCreateView:  toDoList empty");
+            toDoList.add(new ToDo("You have no tasks", null, null, null));
+        }
+        recyclerViewAdapter = new RecyclerViewAdapter(toDoList);
 
         recyclerView.setAdapter(recyclerViewAdapter);
 
