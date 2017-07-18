@@ -153,13 +153,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     //start login process
     private void login(final String email, final String password){
-
+        Log.d(TAG, "login: starts");
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         showProgress(false);
                         if (task.isSuccessful()) {
+                            Log.d(TAG, "onComplete: logged in");
                             //user logged in successfully, move on to the task screen
                             goToTaskActivity();
                         } else {
@@ -169,6 +170,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     }
                 });
 
+        Log.d(TAG, "login: ends");
     }
 
     //a user has already been logged in no need for the login/register screen
@@ -185,7 +187,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     //new user sign up
     private void register(final String email, final String password){
-
+        Log.d(TAG, "register: starts");
         mAuth.fetchProvidersForEmail(email).addOnCompleteListener(
                 new OnCompleteListener<ProviderQueryResult>() {
                     @Override
@@ -193,6 +195,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         showProgress(false);
                         //Email is already in the database
                         if(task.isSuccessful()){
+                            Log.d(TAG, "onComplete: email found");
                             Log.d(TAG, "onComplete: " + task.getResult().getProviders());
                             if(task.getResult().getProviders().size() > 0){
                                 Snackbar.make(
@@ -207,6 +210,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                             @Override
                                             public void onComplete(@NonNull Task<AuthResult> task) {
                                                 if (task.isSuccessful()) {
+                                                    Log.d(TAG, "onComplete: new user found");
                                                     current_user = mAuth.getCurrentUser();
                                                     String user_id = current_user.getUid();
                                                     FirebaseDatabase database = FirebaseDatabase.getInstance();

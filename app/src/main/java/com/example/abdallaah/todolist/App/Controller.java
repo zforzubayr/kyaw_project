@@ -10,17 +10,20 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Controller extends LoginActivity{
     private static final String TAG = "Controller";
 
+    private ArrayList<ToDo> toDoList = null;
 
 
     public Controller() {
-
-    }
-
-    public void getTasks(){
-        Log.d(TAG, "getTasks: starts");
+        toDoList = new ArrayList<>();
 
         FirebaseDatabase.getInstance().
                 getReference("users").
@@ -28,9 +31,12 @@ public class Controller extends LoginActivity{
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        String value = (String) dataSnapshot.getValue();
-                        Log.d(TAG, "onDataChange: " +value);
+                        Log.d(TAG, "onDataChange: " + dataSnapshot.child("todolist"));
+//                        parseDataSnapshot(dataSnapshot);
+                        Log.d(TAG, "onDataChange: " + dataSnapshot.getValue().toString());
                     }
+
+//                    {name=zubair, todolist=[{title=new, desc=testing new}, {title=new 2, desc=testing new 2}]}
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
@@ -38,7 +44,42 @@ public class Controller extends LoginActivity{
                     }
                 }
         );
-        Log.d(TAG, "getTasks: ends");
+    }
+
+    private void parseDataSnapshot(DataSnapshot dataSnapshot) {
+        Log.d(TAG, "parseDataSnapshot: starts");
+
+        for (DataSnapshot item : dataSnapshot.getChildren()) {
+
+            JSONObject object = new JSONObject((HashMap<String, String>) item.getValue());
+
+            try {
+
+                ToDo toDo = new ToDo(
+                        object.get("title").toString(),
+                        object.get("date_created").toString(),
+                        object.get("date_remind").toString(),
+                        object.get("description").toString()
+                );
+
+
+                toDoList.add(toDo);
+
+            } catch (JSONException e) {
+
+                e.printStackTrace();
+            }
+        }
+        Log.d(TAG, "parseDataSnapshot() returned: " + toDoList);
+        Log.d(TAG, "parseDataSnapshot: ends");
+
+    }
+
+
+    public void getTasksList(){
+        Log.d(TAG, "getTasksList: starts");
+
+        Log.d(TAG, "getTasksList: ends");
 
     }
 
