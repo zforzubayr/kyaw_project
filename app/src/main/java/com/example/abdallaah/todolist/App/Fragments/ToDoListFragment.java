@@ -34,12 +34,8 @@ public class ToDoListFragment extends Fragment implements
         RecyclerItemClickListener.OnRecyclerClickListener {
     private static final String TAG = "ToDoListFragment";
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     static ArrayList<ToDo> toDoList = null;
 
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
     private RecyclerViewAdapter recyclerViewAdapter;
@@ -53,22 +49,9 @@ public class ToDoListFragment extends Fragment implements
         // Required empty public constructor
     }
 
-    public static ToDoListFragment newInstance(String param1, String param2) {
-        ToDoListFragment fragment = new ToDoListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -78,10 +61,14 @@ public class ToDoListFragment extends Fragment implements
         Log.d(TAG, "onCreateView: starts");
         firebaseDatabase = FirebaseDatabase.getInstance();
         View view = inflater.inflate(R.layout.fragment_to_do_item, container, false);
+
+        //set up recycle view for the ToDoItem list
+
         userName = view.findViewById(R.id.username);
         recyclerView =  view.findViewById(R.id.tasks_list_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        //starting gesture detector
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), recyclerView, this));
 
         refreshList();
@@ -89,11 +76,6 @@ public class ToDoListFragment extends Fragment implements
     }
 
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {

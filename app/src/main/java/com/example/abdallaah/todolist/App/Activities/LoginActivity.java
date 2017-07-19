@@ -46,6 +46,7 @@ import java.util.regex.Pattern;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
+//most of the code here is google's boiler plate code, I'll just point out the changes I made
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
     private static final String TAG = "LoginActivity";
 
@@ -65,10 +66,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //instantiate firebase for login
         mAuth = FirebaseAuth.getInstance();
 
         setContentView(R.layout.activity_login);
-        // Set up the login form.
+
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
@@ -86,11 +89,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        //This button will start the login process
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: mEmailSignInButton pressed");
+
+                //seperate login function
                 attemptLogin();
             }
         });
@@ -103,11 +109,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private void attemptLogin() {
         Log.d(TAG, "attemptLogin: starts");
+
+        //firebase hasn't been set up no point in goign further
         if (mAuth == null) {
             return;
         }
 
-        // Reset errors.
+        // Locate errors
         mEmailView.setError(null);
         mPasswordView.setError(null);
 
@@ -151,7 +159,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    //start login process
+    //email and password is valid
     private void login(final String email, final String password){
         Log.d(TAG, "login: starts");
         mAuth.signInWithEmailAndPassword(email, password)
@@ -192,10 +200,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     @Override
                     public void onComplete(@NonNull Task<ProviderQueryResult> task) {
                         showProgress(false);
-                        //Email is already in the database
+                        //Email is already in the database or wrong password
                         if(task.isSuccessful()){
                             Log.d(TAG, "onComplete: email found");
-                            Log.d(TAG, "onComplete: " + task.getResult().getProviders());
                             if(task.getResult().getProviders().size() > 0){
                                 Snackbar.make(
                                         mLoginFormView,
@@ -204,6 +211,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                 ).show();
                             }
                             else{
+                                //email is new, creating a new user
                                 mAuth.createUserWithEmailAndPassword(email, password)
                                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                             @Override
@@ -239,11 +247,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
+    //Moving on to the toDoItems activity
     private void goToTaskActivity(){
         Intent intent = new Intent(this, ToDoItemActivity.class);
         startActivity(intent);
     }
 
+    //email checker
     private boolean isEmailValid(String email) {
         String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
@@ -251,6 +261,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         return matcher.matches();
     }
 
+    //password checker
     private boolean isPasswordValid(String password) {
         return password.length() > 4 && 6 > password.length();
     }
@@ -258,9 +269,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
@@ -282,8 +291,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
             });
         } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
@@ -324,7 +331,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(LoginActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);

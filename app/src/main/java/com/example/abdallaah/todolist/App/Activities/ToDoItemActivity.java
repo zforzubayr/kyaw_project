@@ -39,7 +39,7 @@ public class ToDoItemActivity extends AppCompatActivity implements
 
         if(mainFragment == null){
             Log.d(TAG, "onCreate: mainFragment null");
-            mainFragment = ToDoListFragment.newInstance("", "");
+            mainFragment = new ToDoListFragment();
             fragmentManager.beginTransaction().
                     add(R.id.fragment_container, mainFragment).
                     commit();
