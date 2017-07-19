@@ -34,6 +34,7 @@
     <string name="date_format_incorrect">Please follow the correct date format</string>
     <string name="task_crated">Task created on</string>
     <string name="no_reminder">No reminder set</string>
+    <string name="dummy">dummy</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
