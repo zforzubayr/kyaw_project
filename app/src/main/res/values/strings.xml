@@ -19,7 +19,7 @@
     <string name="try_again">Something went wrong, please try again later</string>
     <string name="title_required">Title (Required)</string>
     <string name="description_required">Description (Required)</string>
-    <string name="remind_on">Remind on</string>
+    <string name="remind_on">Remind on (mmddyyyy)</string>
     <string name="no_items_found">No items found</string>
     <string name="title_activity_to_do_item">ToDoItemActivity</string>
     <string name="delete">Delete ToDo item</string>

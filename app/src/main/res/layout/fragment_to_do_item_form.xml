@@ -57,6 +57,8 @@
                 android:layout_height="wrap_content" />
 
             <android.support.design.widget.TextInputLayout
+                app:counterEnabled="true"
+                app:counterMaxLength="6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -65,8 +67,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/remind_on"
-                    android:maxLength="20"
-                    android:maxLines="1" />
+                    android:maxLength="8"
+                    android:maxLines="1"
+                    android:inputType="number" />
 
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>

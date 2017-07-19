@@ -21,7 +21,6 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_marginTop="10dp"
             android:id="@+id/title"
             android:text="@string/no_todo_items_found"
             android:textSize="30sp"
@@ -34,7 +33,6 @@
         <TextView
             android:id="@+id/date_remind"
             android:textSize="20sp"
-            android:textStyle="bold"
             android:paddingStart="5dp"
             android:paddingLeft="5dp"
             android:layout_width="match_parent"
