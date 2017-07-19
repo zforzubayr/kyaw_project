@@ -98,13 +98,18 @@ ToDoItemFormFragment.OnFragmentInteractionListener{
                 addToBackStack(null).
                 commit();
 
-//For adding
-//        getSupportFragmentManager().
-//                beginTransaction().
-//                add(R.id.fragment_container, pickPowerFragment).
-//                addToBackStack(null).
-//                commit();
+    }
 
+
+    public void loadToDoListScreen(){
+        Log.d(TAG, "loadBackStoryScreen: in");
+        ToDoListFragment toDoListFragment = new ToDoListFragment();
+        //this is for replacing
+        getSupportFragmentManager().
+                beginTransaction().
+                replace(R.id.fragment_container, toDoListFragment).
+                addToBackStack(null).
+                commit();
     }
 
     @Override

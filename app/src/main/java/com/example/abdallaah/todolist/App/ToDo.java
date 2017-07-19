@@ -1,6 +1,9 @@
 package com.example.abdallaah.todolist.App;
 
 
+import java.text.DateFormat;
+import java.util.Date;
+
 public class ToDo {
     private String title;
     private String dateCreated;
@@ -9,7 +12,12 @@ public class ToDo {
 
     public ToDo(String title, String dateCreated, String dateRemind, String description) {
         this.title = title;
-        this.dateCreated = dateCreated;
+        if(dateCreated != null){
+            this.dateCreated = dateCreated;
+        }
+        else{
+            this.dateCreated = DateFormat.getDateTimeInstance().format(new Date());
+        }
         this.dateRemind = dateRemind;
         this.description = description;
     }

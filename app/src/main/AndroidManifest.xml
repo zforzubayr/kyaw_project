@@ -24,13 +24,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".App.Activities.TaskActivity"
-            android:label="@string/title_activity_task"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".App.ToDoItemActivity"
             android:label="@string/title_activity_to_do_item"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+            android:windowSoftInputMode="adjustResize|stateHidden"
+        </activity>
     </application>
 
 </manifest>

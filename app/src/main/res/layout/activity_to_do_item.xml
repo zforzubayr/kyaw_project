@@ -38,6 +38,4 @@
 
 
 
-    <!--<include layout="@layout/content_to_do_item" />-->
-
 </android.support.design.widget.CoordinatorLayout>

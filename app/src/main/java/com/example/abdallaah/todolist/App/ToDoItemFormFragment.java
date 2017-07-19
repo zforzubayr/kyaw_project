@@ -3,10 +3,13 @@ package com.example.abdallaah.todolist.App;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.example.abdallaah.todolist.R;
 
@@ -29,6 +32,11 @@ public class ToDoItemFormFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private EditText title;
+    private EditText toDoDescription;
+    private EditText remind;
+    private FloatingActionButton save;
+
 
     public ToDoItemFormFragment() {
         // Required empty public constructor
@@ -65,7 +73,64 @@ public class ToDoItemFormFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_to_do_item_form, container, false);
+        View view =  inflater.inflate(R.layout.fragment_to_do_item_form, container, false);
+
+        title = view.findViewById(R.id.title);
+        toDoDescription = view.findViewById(R.id.description);
+        remind = view.findViewById(R.id.date_remind);
+        save = view.findViewById(R.id.save_task);
+
+
+        save.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        title.setError(null);
+                        toDoDescription.setError(null);
+
+                        final String titleText = title.getText().toString();
+                        final String descriptionText = toDoDescription.getText().toString();
+                        final String remindText = remind.getText().toString();
+
+                        boolean cancel = false;
+                        View focusView = null;
+
+                        // Check for a valid email address.
+                        if (TextUtils.isEmpty(titleText)) {
+                            title.setError(getString(R.string.error_field_required));
+                            focusView = title;
+                            cancel = true;
+                        }
+
+                        else  if (TextUtils.isEmpty(descriptionText)) {
+                            toDoDescription.setError(getString(R.string.error_field_required));
+                            focusView = toDoDescription;
+                            cancel = true;
+                        }
+
+                        if (cancel) {
+                            focusView.requestFocus();
+                        }
+                        else {
+                            save_task(titleText, descriptionText, remindText);
+
+                        }
+                    }
+                }
+        );
+
+        return view;
+    }
+
+    private void save_task(String title, String remind, String description){
+
+        ToDo newToDo = new ToDo(title, null, description, remind);
+
+        Controller newController = new Controller();
+        newController.setTask(newToDo);
+        getFragmentManager().popBackStack();
+
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
