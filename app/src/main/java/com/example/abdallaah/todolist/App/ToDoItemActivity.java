@@ -1,5 +1,6 @@
 package com.example.abdallaah.todolist.App;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.example.abdallaah.todolist.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ToDoItemActivity extends AppCompatActivity implements 
     ToDoListFragment.OnFragmentInteractionListener,
@@ -25,7 +27,7 @@ public class ToDoItemActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-       
+
 
         ToDoListFragment mainFragment
                 = (ToDoListFragment) fragmentManager.findFragmentById(R.id.fragment_container);
@@ -57,7 +59,8 @@ public class ToDoItemActivity extends AppCompatActivity implements
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.sign_out) {
+            signOut();
             return true;
         }
         if(id == R.id.add_todo){
@@ -81,6 +84,14 @@ public class ToDoItemActivity extends AppCompatActivity implements
                 addToBackStack(null).
                 commit();
 
+    }
+
+    private void signOut(){
+        FirebaseAuth.getInstance().signOut();
+        LoginActivity.current_user = null;
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
 

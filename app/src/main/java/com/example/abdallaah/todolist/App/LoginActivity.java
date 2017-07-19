@@ -161,6 +161,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         showProgress(false);
                         if (task.isSuccessful()) {
                             Log.d(TAG, "onComplete: logged in");
+                            current_user = mAuth.getCurrentUser();
                             //user logged in successfully, move on to the task screen
                             goToTaskActivity();
                         } else {
@@ -177,9 +178,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(TAG, "onStart: " + current_user);
         current_user = mAuth.getCurrentUser();
-        Log.d(TAG, "onStart: " + current_user);
         if(current_user != null){
             goToTaskActivity();
         }
