@@ -62,7 +62,7 @@ public class ToDoItemFormFragment extends Fragment {
                         String titleText = title.getText().toString();
                         String descriptionText = toDoDescription.getText().toString();
                         String remindText = remind.getText().toString();
-
+                        String formattedText = "";
 
                         boolean cancel = false;
                         View focusView = null;
@@ -96,7 +96,9 @@ public class ToDoItemFormFragment extends Fragment {
                         //title or description was not empty
                         else {
                             //saving function
-                            String formattedText = remindText.substring(0, 2) + "/" + remindText.substring(2, 4) + "/" + remindText.substring(4, 8);
+                            if(remindText.length() == 8) {
+                                formattedText = remindText.substring(0, 2) + "/" + remindText.substring(2, 4) + "/" + remindText.substring(4, 8);
+                            }
                             save_task(titleText, descriptionText, formattedText);
                         }
                     }
