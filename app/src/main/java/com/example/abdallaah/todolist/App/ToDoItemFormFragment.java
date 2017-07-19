@@ -6,22 +6,17 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.abdallaah.todolist.R;
+import com.google.firebase.database.FirebaseDatabase;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link ToDoItemFormFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link ToDoItemFormFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ToDoItemFormFragment extends Fragment {
+    private static final String TAG = "ToDoItemFormFragment";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -42,15 +37,6 @@ public class ToDoItemFormFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ToDoItemFormFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ToDoItemFormFragment newInstance(String param1, String param2) {
         ToDoItemFormFragment fragment = new ToDoItemFormFragment();
         Bundle args = new Bundle();
@@ -80,11 +66,13 @@ public class ToDoItemFormFragment extends Fragment {
         remind = view.findViewById(R.id.date_remind);
         save = view.findViewById(R.id.save_task);
 
+        Log.d(TAG, "onCreateView: starts");
 
         save.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        Log.d(TAG, "onClick: inside fab button");
                         title.setError(null);
                         toDoDescription.setError(null);
 
@@ -112,6 +100,7 @@ public class ToDoItemFormFragment extends Fragment {
                             focusView.requestFocus();
                         }
                         else {
+                            Log.d(TAG, " fab onClick: initiate save");
                             save_task(titleText, descriptionText, remindText);
 
                         }
@@ -123,11 +112,15 @@ public class ToDoItemFormFragment extends Fragment {
     }
 
     private void save_task(String title, String remind, String description){
-
+        Log.d(TAG, "save_task: inside starts");
         ToDo newToDo = new ToDo(title, null, description, remind);
 
-        Controller newController = new Controller();
-        newController.setTask(newToDo);
+        Log.d(TAG, "save_task: firebase starts");
+        FirebaseDatabase.getInstance().
+                getReference("users").
+                child(LoginActivity.current_user.getUid()).
+                child("todolist").child(Integer.toString(ToDoListFragment.toDoList.size())).setValue(newToDo);
+        Log.d(TAG, "save_task: firebase calll ends");
         getFragmentManager().popBackStack();
 
 

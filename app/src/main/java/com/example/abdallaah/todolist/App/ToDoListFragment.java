@@ -29,7 +29,7 @@ public class ToDoListFragment extends Fragment implements
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static ArrayList<ToDo> toDoList = null;
+    static ArrayList<ToDo> toDoList = null;
 
     private String mParam1;
     private String mParam2;
@@ -37,7 +37,6 @@ public class ToDoListFragment extends Fragment implements
     private OnFragmentInteractionListener mListener;
     private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView recyclerView;
-    private  Controller newController;
 
 
 
@@ -71,6 +70,8 @@ public class ToDoListFragment extends Fragment implements
         View view = inflater.inflate(R.layout.fragment_to_do_item, container, false);
         recyclerView =  view.findViewById(R.id.tasks_list_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), recyclerView, this));
 
         refreshList();
 
@@ -126,18 +127,19 @@ public class ToDoListFragment extends Fragment implements
 
     @Override
     public void onItemClick(View view, int position) {
-
+        Log.d(TAG, "onItemClick: inside");
     }
 
     @Override
     public void onItemLongClick(View view, int position) {
-
+        Log.d(TAG, "onItemLongClick: inside");
     }
 
     private void refreshList(){
         //just instantiate the controller
 
         toDoList = new ArrayList<>();
+
 
         FirebaseDatabase.getInstance().
                 getReference("users").

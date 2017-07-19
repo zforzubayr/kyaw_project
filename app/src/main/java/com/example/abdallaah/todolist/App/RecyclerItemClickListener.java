@@ -28,6 +28,8 @@ public class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchLis
 
     @Override
     public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-        return super.onInterceptTouchEvent(rv, e);
+        Log.d(TAG, "onInterceptTouchEvent: starts");
+
+        return true;
     }
 }
