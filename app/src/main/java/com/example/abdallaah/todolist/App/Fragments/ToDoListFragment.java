@@ -1,10 +1,9 @@
-package com.example.abdallaah.todolist.App;
+package com.example.abdallaah.todolist.App.Fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.IntegerRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.abdallaah.todolist.App.Activities.LoginActivity;
+import com.example.abdallaah.todolist.App.Model.ToDo;
+import com.example.abdallaah.todolist.App.RecyclerItemClickListener;
+import com.example.abdallaah.todolist.App.RecyclerViewAdapter;
 import com.example.abdallaah.todolist.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,7 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ToDoListFragment extends Fragment implements
-        RecyclerItemClickListener.OnRecyclerClickListener{
+        RecyclerItemClickListener.OnRecyclerClickListener {
     private static final String TAG = "ToDoListFragment";
 
     private static final String ARG_PARAM1 = "param1";

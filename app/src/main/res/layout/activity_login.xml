@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.abdallaah.todolist.App.LoginActivity">
+    tools:context="com.example.abdallaah.todolist.App.Activities.LoginActivity">
 
     <!-- Login progress -->
     <ProgressBar

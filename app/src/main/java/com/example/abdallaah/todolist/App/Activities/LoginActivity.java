@@ -1,4 +1,4 @@
-package com.example.abdallaah.todolist.App;
+package com.example.abdallaah.todolist.App.Activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

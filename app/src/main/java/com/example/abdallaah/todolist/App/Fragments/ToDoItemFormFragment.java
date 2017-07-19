@@ -1,4 +1,4 @@
-package com.example.abdallaah.todolist.App;
+package com.example.abdallaah.todolist.App.Fragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.example.abdallaah.todolist.App.Activities.LoginActivity;
+import com.example.abdallaah.todolist.App.Model.ToDo;
 import com.example.abdallaah.todolist.R;
 import com.google.firebase.database.FirebaseDatabase;
 

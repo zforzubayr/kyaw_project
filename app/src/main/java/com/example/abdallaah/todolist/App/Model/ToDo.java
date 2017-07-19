@@ -1,4 +1,4 @@
-package com.example.abdallaah.todolist.App;
+package com.example.abdallaah.todolist.App.Model;
 
 
 import java.text.DateFormat;

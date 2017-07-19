@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="60dp"
-    tools:context="com.example.abdallaah.todolist.App.ToDoItemFormFragment">
+    tools:context="com.example.abdallaah.todolist.App.Fragments.ToDoItemFormFragment">
 
 
     <android.support.v7.widget.CardView

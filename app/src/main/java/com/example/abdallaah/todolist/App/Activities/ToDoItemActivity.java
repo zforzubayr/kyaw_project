@@ -1,4 +1,4 @@
-package com.example.abdallaah.todolist.App;
+package com.example.abdallaah.todolist.App.Activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +9,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.abdallaah.todolist.App.Fragments.ToDoItemDetailsFragment;
+import com.example.abdallaah.todolist.App.Fragments.ToDoItemFormFragment;
+import com.example.abdallaah.todolist.App.Fragments.ToDoListFragment;
 import com.example.abdallaah.todolist.R;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -58,7 +62,6 @@ public class ToDoItemActivity extends AppCompatActivity implements
 
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.sign_out) {
             signOut();
             return true;

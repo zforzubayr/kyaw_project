@@ -11,7 +11,7 @@ import android.view.View;
 public class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchListener{
     private static final String TAG = "RecyclerItemClickListen";
 
-    interface OnRecyclerClickListener{
+    public interface OnRecyclerClickListener{
         void onItemClick(View view, int position);
         void onItemLongClick(View view, int position);
     }
