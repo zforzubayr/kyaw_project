@@ -34,7 +34,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         if(mToDoList == null || mToDoList.size() == 0){
             holder.thumbnail.setImageResource(R.drawable.todo);
-            holder.title.setText("You currently have no todo items");
+            holder.title.setText(R.string.no_todo);
         }
         else {
             ToDo toDoItem = mToDoList.get(position);

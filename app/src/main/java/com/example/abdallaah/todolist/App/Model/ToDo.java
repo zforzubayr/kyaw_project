@@ -45,19 +45,12 @@ public class ToDo {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
     public String getDateRemind() {
-        return dateRemind;
+        String returnDate = "No reminder set";
+        if(dateRemind.length() > 1){
+            returnDate = "Reminder set on "  + " " +  dateRemind;
+        }
+        return returnDate;
     }
 
-    public void setDateRemind(String dateRemind) {
-        this.dateRemind = dateRemind;
-    }
 }
