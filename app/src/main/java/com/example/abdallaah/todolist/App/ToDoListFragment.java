@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.abdallaah.todolist.R;
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +41,7 @@ public class ToDoListFragment extends Fragment implements
     private OnFragmentInteractionListener mListener;
     private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView recyclerView;
+    private TextView userName;
     private FirebaseDatabase firebaseDatabase;
 
 
@@ -73,6 +75,7 @@ public class ToDoListFragment extends Fragment implements
         Log.d(TAG, "onCreateView: starts");
         firebaseDatabase = FirebaseDatabase.getInstance();
         View view = inflater.inflate(R.layout.fragment_to_do_item, container, false);
+        userName = view.findViewById(R.id.username);
         recyclerView =  view.findViewById(R.id.tasks_list_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -159,9 +162,10 @@ public class ToDoListFragment extends Fragment implements
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-
+                        String username = dataSnapshot.child("name").getValue().toString();
                         toDoList = parseDataSnapshot(dataSnapshot.child("todolist"));
                         Log.d(TAG, "onDataChange: todoList" + toDoList);
+                        userName.setText(getString(R.string.welcome) + " " + username + "!");
                         recyclerViewAdapter = new RecyclerViewAdapter(toDoList, getContext());
                         recyclerView.setAdapter(recyclerViewAdapter);
                     }
@@ -187,11 +191,6 @@ public class ToDoListFragment extends Fragment implements
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         dataSnapshot.getRef().child(access_id+"").removeValue();
                         Log.d(TAG, "onDataChange: delete" + dataSnapshot.getRef());
-//                        toDoList = parseDataSnapshot(dataSnapshot.child("todolist"));
-//                        Log.d(TAG, "onDataChange: todoList" + toDoList);
-//                        recyclerViewAdapter = new RecyclerViewAdapter(toDoList, getContext());
-//
-//                        recyclerView.setAdapter(recyclerViewAdapter);
                     }
 
                     @Override

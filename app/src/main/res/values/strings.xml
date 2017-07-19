@@ -27,6 +27,7 @@
     <string name="from_list">from this list</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="welcome">Welcome</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
