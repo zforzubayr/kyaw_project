@@ -39,6 +39,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
+                    android:drawableLeft="@drawable/email"
+                    android:drawableStart="@drawable/email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1" />
 
@@ -55,6 +57,8 @@
                     android:hint="@string/prompt_password"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
+                    android:drawableLeft="@drawable/lock"
+                    android:drawableStart="@drawable/lock"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLength="6"
@@ -71,6 +75,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/name_optional"
+                    android:drawableLeft="@drawable/account"
+                    android:drawableStart="@drawable/account"
                     android:maxLength="20"
                     android:maxLines="1" />
 
@@ -78,6 +84,8 @@
 
             <Button
                 android:id="@+id/email_sign_in_button"
+                android:background="@drawable/buttons"
+                android:textColor="@color/textColorPrimary"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
