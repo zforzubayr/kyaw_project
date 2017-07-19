@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.IntegerRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,6 +40,7 @@ public class ToDoListFragment extends Fragment implements
     private OnFragmentInteractionListener mListener;
     private RecyclerViewAdapter recyclerViewAdapter;
     private RecyclerView recyclerView;
+    private FirebaseDatabase firebaseDatabase;
 
 
 
@@ -69,6 +71,7 @@ public class ToDoListFragment extends Fragment implements
                              Bundle savedInstanceState) {
 
         Log.d(TAG, "onCreateView: starts");
+        firebaseDatabase = FirebaseDatabase.getInstance();
         View view = inflater.inflate(R.layout.fragment_to_do_item, container, false);
         recyclerView =  view.findViewById(R.id.tasks_list_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -128,7 +131,7 @@ public class ToDoListFragment extends Fragment implements
     public void onItemLongClick(View view, int position) {
         Log.d(TAG, "onItemLongClick: inside");
 
-        ToDo toDoItem = toDoList.get(position);
+        final ToDo toDoItem = toDoList.get(position);
 
         new AlertDialog.Builder(getContext()).
                 setIcon(android.R.drawable.ic_dialog_alert).
@@ -140,7 +143,7 @@ public class ToDoListFragment extends Fragment implements
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-
+                                deleteToDoItem(toDoItem.getId());
                             }
                         }).
                 setNegativeButton(getString(R.string.no), null).show();
@@ -148,12 +151,9 @@ public class ToDoListFragment extends Fragment implements
     }
 
     private void refreshList(){
-        //just instantiate the controller
 
         toDoList = new ArrayList<>();
-
-
-        FirebaseDatabase.getInstance().
+        firebaseDatabase.
                 getReference("users").
                 child(LoginActivity.current_user.getUid()).addValueEventListener(
                 new ValueEventListener() {
@@ -163,7 +163,6 @@ public class ToDoListFragment extends Fragment implements
                         toDoList = parseDataSnapshot(dataSnapshot.child("todolist"));
                         Log.d(TAG, "onDataChange: todoList" + toDoList);
                         recyclerViewAdapter = new RecyclerViewAdapter(toDoList, getContext());
-
                         recyclerView.setAdapter(recyclerViewAdapter);
                     }
 
@@ -173,8 +172,34 @@ public class ToDoListFragment extends Fragment implements
                     }
                 }
         );
+    }
 
+    private void deleteToDoItem(int id){
+        toDoList = new ArrayList<>();
 
+        final int access_id = id;
+        firebaseDatabase.
+                getReference("users").
+                child(LoginActivity.current_user.getUid()).
+                child("todolist").addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        dataSnapshot.getRef().child(access_id+"").removeValue();
+                        Log.d(TAG, "onDataChange: delete" + dataSnapshot.getRef());
+//                        toDoList = parseDataSnapshot(dataSnapshot.child("todolist"));
+//                        Log.d(TAG, "onDataChange: todoList" + toDoList);
+//                        recyclerViewAdapter = new RecyclerViewAdapter(toDoList, getContext());
+//
+//                        recyclerView.setAdapter(recyclerViewAdapter);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                }
+        );
     }
 
     private ArrayList<ToDo> parseDataSnapshot(DataSnapshot dataSnapshot) {
@@ -196,7 +221,6 @@ public class ToDoListFragment extends Fragment implements
                             object.get("dateRemind").toString(),
                             object.get("description").toString(),
                             Integer.parseInt(object.get("id").toString())
-
                     );
 
 
