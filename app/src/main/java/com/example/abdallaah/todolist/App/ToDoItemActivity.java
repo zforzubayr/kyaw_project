@@ -39,20 +39,12 @@ public class ToDoItemActivity extends AppCompatActivity implements
 
         if(mainFragment == null){
             Log.d(TAG, "onCreate: mainFragment null");
-            mainFragment = ToDoListFragment.newInstance("sd", "ad");
+            mainFragment = ToDoListFragment.newInstance("", "");
             fragmentManager.beginTransaction().
                     add(R.id.fragment_container, mainFragment).
                     commit();
         }
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         Log.d(TAG, "onCreate: ends");
     }
 
