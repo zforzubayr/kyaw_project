@@ -107,13 +107,13 @@ public class ToDoItemFormFragment extends Fragment {
     }
 
     private void save_task(String title, String remind, String description){
-        //giving id to ToDoItems based on the last highest digits available in the firebase which will give unique ids to each task
+        //giving id to ToDoItems based on the last highest digits available in the fire base which will give unique ids to each task
         int id;
         try {
-            id = (ToDoListFragment.toDoList.get(ToDoListFragment.toDoList.size())).getId();
+            id = (ToDoListFragment.toDoList.get(ToDoListFragment.toDoList.size() - 1)).getId() + 1;
 
         }
-        //this scenario only appears when user has deleted all todoitems so 0 is a valid number
+        //this scenario only appears when user has deleted all toDoItems so 0 is a valid number
         catch (Exception e){
            id = 0;
         }
