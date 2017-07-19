@@ -104,6 +104,12 @@ public class ToDoListFragment extends Fragment implements
     @Override
     public void onItemClick(View view, int position) {
         Log.d(TAG, "onItemClick: inside");
+        getActivity().
+                getSupportFragmentManager().
+                beginTransaction().
+                replace(R.id.fragment_container, new ToDoItemDetailsFragment()).
+                addToBackStack(null).
+                commit();
     }
 
     @Override

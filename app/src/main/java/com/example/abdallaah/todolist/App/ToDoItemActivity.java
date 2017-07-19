@@ -17,8 +17,9 @@ import android.view.View;
 import com.example.abdallaah.todolist.R;
 
 public class ToDoItemActivity extends AppCompatActivity implements 
-ToDoListFragment.OnFragmentInteractionListener,
-ToDoItemFormFragment.OnFragmentInteractionListener{
+    ToDoListFragment.OnFragmentInteractionListener,
+    ToDoItemFormFragment.OnFragmentInteractionListener,
+    ToDoItemDetailsFragment.OnFragmentInteractionListener{
     private static final String TAG = "ToDoItemActivity";
 
     @Override
@@ -101,13 +102,13 @@ ToDoItemFormFragment.OnFragmentInteractionListener{
     }
 
 
-    public void loadToDoListScreen(){
+    public void loadToDoDetailScreen(){
         Log.d(TAG, "loadBackStoryScreen: in");
-        ToDoListFragment toDoListFragment = new ToDoListFragment();
+        ToDoItemDetailsFragment toDoItemDetailsFragment = new ToDoItemDetailsFragment();
         //this is for replacing
         getSupportFragmentManager().
                 beginTransaction().
-                replace(R.id.fragment_container, toDoListFragment).
+                replace(R.id.fragment_container, toDoItemDetailsFragment).
                 addToBackStack(null).
                 commit();
     }
