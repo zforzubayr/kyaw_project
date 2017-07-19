@@ -125,6 +125,7 @@ public class ToDoListFragment extends Fragment implements
     @Override
     public void onItemLongClick(View view, int position) {
         Log.d(TAG, "onItemLongClick: inside");
+
     }
 
     private void refreshList(){

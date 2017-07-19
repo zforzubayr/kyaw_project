@@ -1,19 +1,13 @@
 package com.example.abdallaah.todolist.App;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
 import com.example.abdallaah.todolist.R;
 
 public class ToDoItemActivity extends AppCompatActivity implements 
@@ -59,9 +53,7 @@ public class ToDoItemActivity extends AppCompatActivity implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -71,8 +63,6 @@ public class ToDoItemActivity extends AppCompatActivity implements
         if(id == R.id.add_todo){
             Log.d(TAG, "onOptionsItemSelected: clicked");
             loadAddTaskScreen();
-//            Intent intent = new Intent(this, SearchActivity.class);
-//            startActivity(intent);
             return true;
         }
         Log.d(TAG, "onOptionsItemSelected() returned: options value so can't return the default true");
@@ -94,19 +84,7 @@ public class ToDoItemActivity extends AppCompatActivity implements
     }
 
 
-    public void loadToDoDetailScreen(){
-        Log.d(TAG, "loadBackStoryScreen: in");
-        ToDoItemDetailsFragment toDoItemDetailsFragment = new ToDoItemDetailsFragment();
-        //this is for replacing
-        getSupportFragmentManager().
-                beginTransaction().
-                replace(R.id.fragment_container, toDoItemDetailsFragment).
-                addToBackStack(null).
-                commit();
-    }
-
     @Override
     public void onFragmentInteraction(Uri uri) {
-        
     }
 }
