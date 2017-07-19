@@ -3,12 +3,15 @@ package com.example.abdallaah.todolist.App;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.abdallaah.todolist.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -18,8 +21,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private List<ToDo> mToDoList;
     private Context mContext;
 
-    public RecyclerViewAdapter(List<ToDo> mToDoList) {
+    public RecyclerViewAdapter(List<ToDo> mToDoList, Context context) {
         this.mToDoList = mToDoList;
+        this.mContext = context;
     }
 
     @Override
@@ -31,10 +35,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(ToDoHolder holder, int position) {
-        ToDo toDoItem = mToDoList.get(position);
-        holder.title.setText(toDoItem.getTitle());
-        holder.dateCreated.setText(toDoItem.getDateCreated());
-        holder.dateRemind.setText(toDoItem.getDateRemind());
+
+        if(mToDoList == null || mToDoList.size() == 0){
+            holder.thumbnail.setImageResource(R.drawable.todo);
+            holder.title.setText("You currently have no todo items");
+        }
+        else {
+            ToDo toDoItem = mToDoList.get(position);
+            holder.thumbnail.setImageResource(R.drawable.tasks);
+            holder.title.setText(toDoItem.getTitle());
+            holder.dateRemind.setText(toDoItem.getDateRemind());
+        }
+
     }
 
     @Override
@@ -57,9 +69,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView title = null;
         TextView dateCreated = null;
         TextView dateRemind = null;
+        ImageView thumbnail = null;
 
         public ToDoHolder(View itemView) {
             super(itemView);
+            this.thumbnail = itemView.findViewById(R.id.thumbnail);
             this.title = itemView.findViewById(R.id.title);
             this.dateCreated = itemView.findViewById(R.id.date_created);
             this.dateRemind = itemView.findViewById(R.id.date_remind);

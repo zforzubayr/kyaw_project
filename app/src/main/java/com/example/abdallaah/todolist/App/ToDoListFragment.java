@@ -126,7 +126,7 @@ public class ToDoListFragment extends Fragment implements
 
                         toDoList = parseDataSnapshot(dataSnapshot.child("todolist"));
                         Log.d(TAG, "onDataChange: todoList" + toDoList);
-                        recyclerViewAdapter = new RecyclerViewAdapter(toDoList);
+                        recyclerViewAdapter = new RecyclerViewAdapter(toDoList, getContext());
 
                         recyclerView.setAdapter(recyclerViewAdapter);
                     }
