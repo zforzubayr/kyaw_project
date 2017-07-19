@@ -31,6 +31,7 @@
     <string name="name_optional">Name (optional)</string>
     <string name="no_todo_items_found">No todo items found</string>
     <string name="no_todo">You currently have no todo items</string>
+    <string name="date_format_incorrect">Please follow the correct date format</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

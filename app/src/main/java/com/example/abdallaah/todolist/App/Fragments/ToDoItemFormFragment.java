@@ -59,9 +59,10 @@ public class ToDoItemFormFragment extends Fragment {
                         title.setError(null);
                         toDoDescription.setError(null);
 
-                        final String titleText = title.getText().toString();
-                        final String descriptionText = toDoDescription.getText().toString();
-                        final String remindText = remind.getText().toString();
+                        String titleText = title.getText().toString();
+                        String descriptionText = toDoDescription.getText().toString();
+                        String remindText = remind.getText().toString();
+
 
                         boolean cancel = false;
                         View focusView = null;
@@ -80,6 +81,14 @@ public class ToDoItemFormFragment extends Fragment {
                             cancel = true;
                         }
 
+                        else if(!TextUtils.isEmpty(remindText) && remindText.length() != 8){
+                            remind.setError(getString(R.string.date_format_incorrect));
+                            focusView = toDoDescription;
+                            cancel = true;
+                        }
+
+
+
                         //if any one of those two fields are empty, cancel save and point out errors
                         if (cancel) {
                             focusView.requestFocus();
@@ -87,7 +96,8 @@ public class ToDoItemFormFragment extends Fragment {
                         //title or description was not empty
                         else {
                             //saving function
-                            save_task(titleText, descriptionText, remindText);
+                            String formattedText = remindText.substring(0, 2) + "/" + remindText.substring(2, 4) + "/" + remindText.substring(4, 8);
+                            save_task(titleText, descriptionText, formattedText);
                         }
                     }
                 }
@@ -98,7 +108,15 @@ public class ToDoItemFormFragment extends Fragment {
 
     private void save_task(String title, String remind, String description){
         //giving id to ToDoItems based on the last highest digits available in the firebase which will give unique ids to each task
-        int id = (ToDoListFragment.toDoList.get(ToDoListFragment.toDoList.size() - 1)).getId() + 1;
+        int id;
+        try {
+            id = (ToDoListFragment.toDoList.get(ToDoListFragment.toDoList.size())).getId();
+
+        }
+        //this scenario only appears when user has deleted all todoitems so 0 is a valid number
+        catch (Exception e){
+           id = 0;
+        }
 
         //create the new ToDoItem
         ToDo newToDo = new ToDo(title, null, description, remind, id);

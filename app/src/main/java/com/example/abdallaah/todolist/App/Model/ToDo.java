@@ -46,11 +46,7 @@ public class ToDo {
     }
 
     public String getDateRemind() {
-        String returnDate = "No reminder set";
-        if(dateRemind.length() > 1){
-            returnDate = "Reminder set on "  + " " +  dateRemind;
-        }
-        return returnDate;
+        return dateRemind;
     }
 
 }

@@ -40,7 +40,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             ToDo toDoItem = mToDoList.get(position);
             holder.thumbnail.setImageResource(R.drawable.tasks);
             holder.title.setText(toDoItem.getTitle());
-            holder.dateRemind.setText(toDoItem.getDateRemind());
+            String remindData = toDoItem.getDateRemind();
+            if(remindData.length() > 7) {
+                remindData = "Reminder set on " + " " + remindData;
+            }
+            else {
+                remindData = "No reminder set";
+            }
+            holder.dateRemind.setText(remindData);
+
         }
 
     }

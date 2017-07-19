@@ -58,7 +58,7 @@
 
             <android.support.design.widget.TextInputLayout
                 app:counterEnabled="true"
-                app:counterMaxLength="6"
+                app:counterMaxLength="8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
