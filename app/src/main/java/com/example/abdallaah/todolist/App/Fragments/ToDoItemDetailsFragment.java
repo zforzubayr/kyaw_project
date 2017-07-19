@@ -72,7 +72,7 @@ public class ToDoItemDetailsFragment extends Fragment {
 
         titleText.setText(mTitle);
         descriptionText.setText(mDescription);
-        dateCreatedText.setText("Task created on " + mDateCreated);
+        dateCreatedText.setText(getString(R.string.task_crated) + " " + mDateCreated);
         dateRemindText.setText(mdateRemind);
 
         return view;
