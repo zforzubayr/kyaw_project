@@ -17,16 +17,9 @@ import com.example.abdallaah.todolist.App.Model.ToDo;
 import com.example.abdallaah.todolist.R;
 import com.google.firebase.database.FirebaseDatabase;
 
+//this fragment is used for creating new ToDoItems
 public class ToDoItemFormFragment extends Fragment {
     private static final String TAG = "ToDoItemFormFragment";
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
     private EditText title;
@@ -39,22 +32,11 @@ public class ToDoItemFormFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static ToDoItemFormFragment newInstance(String param1, String param2) {
-        ToDoItemFormFragment fragment = new ToDoItemFormFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -68,13 +50,12 @@ public class ToDoItemFormFragment extends Fragment {
         remind = view.findViewById(R.id.date_remind);
         save = view.findViewById(R.id.save_task);
 
-        Log.d(TAG, "onCreateView: starts");
 
         save.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Log.d(TAG, "onClick: inside fab button");
+                        //title and description set as required fields
                         title.setError(null);
                         toDoDescription.setError(null);
 
@@ -85,26 +66,28 @@ public class ToDoItemFormFragment extends Fragment {
                         boolean cancel = false;
                         View focusView = null;
 
-                        // Check for a valid email address.
+                        // Check if title is empty
                         if (TextUtils.isEmpty(titleText)) {
                             title.setError(getString(R.string.error_field_required));
                             focusView = title;
                             cancel = true;
                         }
 
+                        //check if description is empty
                         else  if (TextUtils.isEmpty(descriptionText)) {
                             toDoDescription.setError(getString(R.string.error_field_required));
                             focusView = toDoDescription;
                             cancel = true;
                         }
 
+                        //if any one of those two fields are empty, cancel save and point out errors
                         if (cancel) {
                             focusView.requestFocus();
                         }
+                        //title or description was not empty
                         else {
-                            Log.d(TAG, " fab onClick: initiate save");
+                            //saving function
                             save_task(titleText, descriptionText, remindText);
-
                         }
                     }
                 }
@@ -114,27 +97,22 @@ public class ToDoItemFormFragment extends Fragment {
     }
 
     private void save_task(String title, String remind, String description){
-        Log.d(TAG, "save_task: inside starts");
+        //giving id to ToDoItems based on the last highest digits available in the firebase which will give unique ids to each task
         int id = (ToDoListFragment.toDoList.get(ToDoListFragment.toDoList.size() - 1)).getId() + 1;
+
+        //create the new ToDoItem
         ToDo newToDo = new ToDo(title, null, description, remind, id);
 
-        Log.d(TAG, "save_task: firebase starts");
+        //save in firebase
         FirebaseDatabase.getInstance().
                 getReference("users").
                 child(LoginActivity.current_user.getUid()).
                 child("todolist").child(Integer.toString(id)).setValue(newToDo);
-        Log.d(TAG, "save_task: firebase calll ends");
+
+        //after saving go back to the ToDoItem lists
         getFragmentManager().popBackStack();
-
-
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -153,16 +131,7 @@ public class ToDoItemFormFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

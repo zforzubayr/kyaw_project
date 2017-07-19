@@ -11,8 +11,11 @@ import android.widget.TextView;
 
 import com.example.abdallaah.todolist.R;
 
+
+//this fragment displays ToDoItems stored in firebase
 public class ToDoItemDetailsFragment extends Fragment {
 
+    //these attributes are displayed
     private static final String ARG_title = "title";
     private static final String ARG_description = "description";
     private static final String ARG_dateCreated = "dateCreated";
@@ -59,6 +62,7 @@ public class ToDoItemDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //initializing the layout file, where ToDoItem information will be displayed
         View view = inflater.inflate(R.layout.fragment_to_do_item_details, container, false);
 
         TextView titleText = view.findViewById(R.id.title);
@@ -71,16 +75,9 @@ public class ToDoItemDetailsFragment extends Fragment {
         dateCreatedText.setText(mDateCreated);
         dateRemindText.setText(mdateRemind);
 
-
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -100,6 +97,7 @@ public class ToDoItemDetailsFragment extends Fragment {
     }
 
 
+    //implementation of fragment interfaces
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }

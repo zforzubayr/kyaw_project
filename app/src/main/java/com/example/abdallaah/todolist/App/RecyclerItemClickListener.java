@@ -8,6 +8,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+//this class and interface is used for gestures inside the recycler view
 public class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchListener{
     private static final String TAG = "RecyclerItemClickListen";
 
@@ -21,15 +22,15 @@ public class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchLis
 
     //for override all intercept touch events,
     public RecyclerItemClickListener(Context context, final RecyclerView recyclerview, final OnRecyclerClickListener mListener) {
+
+        //initialize the private variables
         this.mListener = mListener;
         mGestureDetector = new GestureDetectorCompat(context, new GestureDetector.SimpleOnGestureListener(){
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
                 Log.d(TAG, "onSingleTapUp: starts");
-//                return super.onSingleTapUp(e);
                 View childView = recyclerview.findChildViewUnder(e.getX(), e.getY());
                 if(childView != null && mListener != null){
-                    Log.d(TAG, "onSingleTapUp: calling Listener.onSingleTapUp");
                     mListener.onItemClick(childView, recyclerview.getChildAdapterPosition(childView));
                 }
                 return true;

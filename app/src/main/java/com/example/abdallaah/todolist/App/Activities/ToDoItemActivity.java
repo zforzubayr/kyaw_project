@@ -32,7 +32,7 @@ public class ToDoItemActivity extends AppCompatActivity implements
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-
+        //this fragment shows the recyclerview with the tasks
         ToDoListFragment mainFragment
                 = (ToDoListFragment) fragmentManager.findFragmentById(R.id.fragment_container);
 
@@ -50,7 +50,6 @@ public class ToDoItemActivity extends AppCompatActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_to_do_item, menu);
         Log.d(TAG, "onCreateOptionsMenu() returned: " + true);
         return true;
@@ -67,20 +66,19 @@ public class ToDoItemActivity extends AppCompatActivity implements
             return true;
         }
         if(id == R.id.add_todo){
-            Log.d(TAG, "onOptionsItemSelected: clicked");
             loadAddTaskScreen();
             return true;
         }
-        Log.d(TAG, "onOptionsItemSelected() returned: options value so can't return the default true");
+
         return super.onOptionsItemSelected(item);
     }
 
 
-
+    //this method starts the fragment for adding new tasks
     private void loadAddTaskScreen(){
         ToDoItemFormFragment toDoItemFormFragment = new ToDoItemFormFragment();
         Log.d(TAG, "loadPickPowerScreen: inside");
-        //this is for replacing
+
         getSupportFragmentManager().
                 beginTransaction().
                 replace(R.id.fragment_container, toDoItemFormFragment).
@@ -89,6 +87,7 @@ public class ToDoItemActivity extends AppCompatActivity implements
 
     }
 
+    //destroying current user
     private void signOut(){
         FirebaseAuth.getInstance().signOut();
         LoginActivity.current_user = null;

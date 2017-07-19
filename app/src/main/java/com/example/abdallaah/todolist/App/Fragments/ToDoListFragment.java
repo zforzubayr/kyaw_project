@@ -30,12 +30,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+//this fragment is used to show the list of ToDoItems
+//implementing RecyclerItemClickListener.OnRecyclerClickListener for gesture detector
+
 public class ToDoListFragment extends Fragment implements
         RecyclerItemClickListener.OnRecyclerClickListener {
     private static final String TAG = "ToDoListFragment";
 
     static ArrayList<ToDo> toDoList = null;
-
 
     private OnFragmentInteractionListener mListener;
     private RecyclerViewAdapter recyclerViewAdapter;
@@ -63,7 +65,6 @@ public class ToDoListFragment extends Fragment implements
         View view = inflater.inflate(R.layout.fragment_to_do_item, container, false);
 
         //set up recycle view for the ToDoItem list
-
         userName = view.findViewById(R.id.username);
         recyclerView =  view.findViewById(R.id.tasks_list_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -71,6 +72,7 @@ public class ToDoListFragment extends Fragment implements
         //starting gesture detector
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), recyclerView, this));
 
+        //call this method to update the list
         refreshList();
         return view;
     }
@@ -95,10 +97,13 @@ public class ToDoListFragment extends Fragment implements
     }
 
     @Override
+    //onItemClick is used for viewing ToDoItem details
     public void onItemClick(View view, int position) {
-        Log.d(TAG, "onItemClick: inside");
+
+        //find the ToDoItem from the ArrayList
         ToDo toDoItem = toDoList.get(position);
 
+        //get all information for the ToDoItemDetailsFragment
         ToDoItemDetailsFragment toDoItemDetailsFragment
                 = ToDoItemDetailsFragment.newInstance(
                         toDoItem.getTitle(),
@@ -107,6 +112,7 @@ public class ToDoListFragment extends Fragment implements
                         toDoItem.getDateRemind()
         );
 
+        //go to the ToDoItemDetailsFragment
         getActivity().
                 getSupportFragmentManager().
                 beginTransaction().
@@ -115,12 +121,16 @@ public class ToDoListFragment extends Fragment implements
                 commit();
     }
 
+    //onItemLongClick is used for deleting a ToDoItem from the list
     @Override
     public void onItemLongClick(View view, int position) {
-        Log.d(TAG, "onItemLongClick: inside");
 
+        //find the ToDoItem from the ArrayList
         final ToDo toDoItem = toDoList.get(position);
 
+        //verify with the user, about the deleting request
+        //if yes then call the deleteToDoItem method
+        //else cancel the alert
         new AlertDialog.Builder(getContext()).
                 setIcon(android.R.drawable.ic_dialog_alert).
                 setTitle(R.string.delete).
@@ -138,8 +148,8 @@ public class ToDoListFragment extends Fragment implements
 
     }
 
+    //method used for updating the list
     private void refreshList(){
-
         toDoList = new ArrayList<>();
         firebaseDatabase.
                 getReference("users").
@@ -147,10 +157,15 @@ public class ToDoListFragment extends Fragment implements
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        //finding the username for welcoming on the list screen
                         String username = dataSnapshot.child("name").getValue().toString();
+
+                        //update the list by parsing the datasnapshot using parseDataSnapshot function
                         toDoList = parseDataSnapshot(dataSnapshot.child("todolist"));
-                        Log.d(TAG, "onDataChange: todoList" + toDoList);
+
                         userName.setText(getString(R.string.welcome) + " " + username + "!");
+
+                        //update the adapter
                         recyclerViewAdapter = new RecyclerViewAdapter(toDoList, getContext());
                         recyclerView.setAdapter(recyclerViewAdapter);
                     }
@@ -163,10 +178,12 @@ public class ToDoListFragment extends Fragment implements
         );
     }
 
+    //this method deletes a ToDoItem based on the id
     private void deleteToDoItem(int id){
-        toDoList = new ArrayList<>();
 
+        //requires a final variable for inner class access
         final int access_id = id;
+
         firebaseDatabase.
                 getReference("users").
                 child(LoginActivity.current_user.getUid()).
@@ -174,8 +191,8 @@ public class ToDoListFragment extends Fragment implements
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        //delete the ToDoItem based on id
                         dataSnapshot.getRef().child(access_id+"").removeValue();
-                        Log.d(TAG, "onDataChange: delete" + dataSnapshot.getRef());
                     }
 
                     @Override
@@ -186,8 +203,8 @@ public class ToDoListFragment extends Fragment implements
         );
     }
 
+    //this method is used for parsing the datasnapshot
     private ArrayList<ToDo> parseDataSnapshot(DataSnapshot dataSnapshot) {
-        Log.d(TAG, "parseDataSnapshot: starts");
 
         ArrayList<ToDo> parseToDoArray = new ArrayList<>();
         for (DataSnapshot item : dataSnapshot.getChildren()) {
@@ -195,10 +212,8 @@ public class ToDoListFragment extends Fragment implements
             if(item != null){
                 JSONObject object = new JSONObject((HashMap<String, String>) item.getValue());
 
-                Log.d(TAG, "parseDataSnapshot: JSONObject" + object);
-
                 try {
-
+                    //creating new ToDoItem
                     ToDo toDo = new ToDo(
                             object.get("title").toString(),
                             object.get("dateCreated").toString(),
@@ -207,17 +222,14 @@ public class ToDoListFragment extends Fragment implements
                             Integer.parseInt(object.get("id").toString())
                     );
 
-
                     parseToDoArray.add(toDo);
 
                 } catch (JSONException e) {
-
                     e.printStackTrace();
                 }
             }
         }
-        Log.d(TAG, "parseDataSnapshot: ends");
-        Log.d(TAG, "parseDataSnapshot: " + parseToDoArray);
+
         return parseToDoArray;
 
     }
