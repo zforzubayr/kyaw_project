@@ -5,12 +5,14 @@ import java.text.DateFormat;
 import java.util.Date;
 
 public class ToDo {
+
+    private int id;
     private String title;
     private String dateCreated;
     private String dateRemind;
     private String description;
 
-    public ToDo(String title, String dateCreated, String dateRemind, String description) {
+    public ToDo(String title, String dateCreated, String dateRemind, String description, int id) {
         this.title = title;
         if(dateCreated != null){
             this.dateCreated = dateCreated;
@@ -20,6 +22,11 @@ public class ToDo {
         }
         this.dateRemind = dateRemind;
         this.description = description;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {

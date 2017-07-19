@@ -113,13 +113,14 @@ public class ToDoItemFormFragment extends Fragment {
 
     private void save_task(String title, String remind, String description){
         Log.d(TAG, "save_task: inside starts");
-        ToDo newToDo = new ToDo(title, null, description, remind);
+        int id = ToDoListFragment.toDoList.size();
+        ToDo newToDo = new ToDo(title, null, description, remind, id);
 
         Log.d(TAG, "save_task: firebase starts");
         FirebaseDatabase.getInstance().
                 getReference("users").
                 child(LoginActivity.current_user.getUid()).
-                child("todolist").child(Integer.toString(ToDoListFragment.toDoList.size())).setValue(newToDo);
+                child("todolist").child(Integer.toString(id)).setValue(newToDo);
         Log.d(TAG, "save_task: firebase calll ends");
         getFragmentManager().popBackStack();
 

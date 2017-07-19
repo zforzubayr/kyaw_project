@@ -22,6 +22,11 @@
     <string name="remind_on">Remind on</string>
     <string name="no_items_found">No items found</string>
     <string name="title_activity_to_do_item">ToDoItemActivity</string>
+    <string name="delete">Delete ToDo item</string>
+    <string name="are_you_sure">Are you sure you want to delete</string>
+    <string name="from_list">from this list</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

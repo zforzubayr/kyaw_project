@@ -1,9 +1,11 @@
 package com.example.abdallaah.todolist.App;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -126,6 +128,23 @@ public class ToDoListFragment extends Fragment implements
     public void onItemLongClick(View view, int position) {
         Log.d(TAG, "onItemLongClick: inside");
 
+        ToDo toDoItem = toDoList.get(position);
+
+        new AlertDialog.Builder(getContext()).
+                setIcon(android.R.drawable.ic_dialog_alert).
+                setTitle(R.string.delete).
+                setMessage(getString(R.string.are_you_sure)
+                        + " " + toDoItem.getTitle() + " " +
+                        getString(R.string.from_list)).
+                setPositiveButton(getString(R.string.yes),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        }).
+                setNegativeButton(getString(R.string.no), null).show();
+
     }
 
     private void refreshList(){
@@ -164,25 +183,29 @@ public class ToDoListFragment extends Fragment implements
         ArrayList<ToDo> parseToDoArray = new ArrayList<>();
         for (DataSnapshot item : dataSnapshot.getChildren()) {
 
-            JSONObject object = new JSONObject((HashMap<String, String>) item.getValue());
+            if(item != null){
+                JSONObject object = new JSONObject((HashMap<String, String>) item.getValue());
 
-            Log.d(TAG, "parseDataSnapshot: JSONObject" + object);
+                Log.d(TAG, "parseDataSnapshot: JSONObject" + object);
 
-            try {
+                try {
 
-                ToDo toDo = new ToDo(
-                        object.get("title").toString(),
-                        object.get("dateCreated").toString(),
-                        object.get("dateRemind").toString(),
-                        object.get("description").toString()
-                );
+                    ToDo toDo = new ToDo(
+                            object.get("title").toString(),
+                            object.get("dateCreated").toString(),
+                            object.get("dateRemind").toString(),
+                            object.get("description").toString(),
+                            Integer.parseInt(object.get("id").toString())
+
+                    );
 
 
-                parseToDoArray.add(toDo);
+                    parseToDoArray.add(toDo);
 
-            } catch (JSONException e) {
+                } catch (JSONException e) {
 
-                e.printStackTrace();
+                    e.printStackTrace();
+                }
             }
         }
         Log.d(TAG, "parseDataSnapshot: ends");
