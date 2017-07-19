@@ -16,10 +16,10 @@ import com.example.abdallaah.todolist.App.Fragments.ToDoListFragment;
 import com.example.abdallaah.todolist.R;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ToDoItemActivity extends AppCompatActivity implements 
-    ToDoListFragment.OnFragmentInteractionListener,
-    ToDoItemFormFragment.OnFragmentInteractionListener,
-    ToDoItemDetailsFragment.OnFragmentInteractionListener{
+public class ToDoItemActivity extends AppCompatActivity implements
+        ToDoListFragment.OnFragmentInteractionListener,
+        ToDoItemFormFragment.OnFragmentInteractionListener,
+        ToDoItemDetailsFragment.OnFragmentInteractionListener {
     private static final String TAG = "ToDoItemActivity";
 
     @Override
@@ -37,7 +37,7 @@ public class ToDoItemActivity extends AppCompatActivity implements
                 = (ToDoListFragment) fragmentManager.findFragmentById(R.id.fragment_container);
 
 
-        if(mainFragment == null){
+        if (mainFragment == null) {
             Log.d(TAG, "onCreate: mainFragment null");
             mainFragment = new ToDoListFragment();
             fragmentManager.beginTransaction().
@@ -65,7 +65,7 @@ public class ToDoItemActivity extends AppCompatActivity implements
             signOut();
             return true;
         }
-        if(id == R.id.add_todo){
+        if (id == R.id.add_todo) {
             loadAddTaskScreen();
             return true;
         }
@@ -75,7 +75,7 @@ public class ToDoItemActivity extends AppCompatActivity implements
 
 
     //this method starts the fragment for adding new tasks
-    private void loadAddTaskScreen(){
+    private void loadAddTaskScreen() {
         ToDoItemFormFragment toDoItemFormFragment = new ToDoItemFormFragment();
         Log.d(TAG, "loadPickPowerScreen: inside");
 
@@ -87,15 +87,14 @@ public class ToDoItemActivity extends AppCompatActivity implements
 
     }
 
-    //destroying current user
-    private void signOut(){
+    //destroying current user, ending all activities on top of LoginActivity
+    private void signOut() {
         FirebaseAuth.getInstance().signOut();
         LoginActivity.current_user = null;
         Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
-
 
     @Override
     public void onFragmentInteraction(Uri uri) {

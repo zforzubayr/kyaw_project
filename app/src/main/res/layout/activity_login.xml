@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -39,9 +39,9 @@
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_email"
                     android:drawableLeft="@drawable/email"
                     android:drawableStart="@drawable/email"
+                    android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1" />
 
@@ -49,19 +49,19 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:counterEnabled="true"
-                app:counterMaxLength="6"
-                android:layout_height="wrap_content">
+                app:counterMaxLength="6">
 
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/lock"
+                    android:drawableStart="@drawable/lock"
                     android:hint="@string/prompt_password"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
-                    android:drawableLeft="@drawable/lock"
-                    android:drawableStart="@drawable/lock"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLength="6"
@@ -71,17 +71,17 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:counterEnabled="true"
-                app:counterMaxLength="20"
-                android:layout_height="wrap_content">
+                app:counterMaxLength="20">
 
                 <EditText
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/name_optional"
                     android:drawableLeft="@drawable/account"
                     android:drawableStart="@drawable/account"
+                    android:hint="@string/name_optional"
                     android:maxLength="20"
                     android:maxLines="1" />
 
@@ -89,13 +89,13 @@
 
             <Button
                 android:id="@+id/email_sign_in_button"
-                android:background="@drawable/buttons"
-                android:textColor="@color/textColorPrimary"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/buttons"
                 android:text="@string/action_sign_in"
+                android:textColor="@color/textColorPrimary"
                 android:textStyle="bold" />
 
         </LinearLayout>

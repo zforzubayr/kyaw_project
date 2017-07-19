@@ -3,21 +3,19 @@ package com.example.abdallaah.todolist.App.Activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -106,7 +104,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
 
-
     private void attemptLogin() {
         Log.d(TAG, "attemptLogin: starts");
 
@@ -151,16 +148,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         if (cancel) {
             focusView.requestFocus();
-        }
-        else {
+        } else {
             showProgress(true);
-           login(email, password);
+            login(email, password);
 
         }
     }
 
     //email and password is valid
-    private void login(final String email, final String password){
+    private void login(final String email, final String password) {
         Log.d(TAG, "login: starts");
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -187,13 +183,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onStart() {
         super.onStart();
         current_user = mAuth.getCurrentUser();
-        if(current_user != null){
+        if (current_user != null) {
             goToTaskActivity();
         }
     }
 
     //new user sign up
-    private void register(final String email, final String password){
+    private void register(final String email, final String password) {
         Log.d(TAG, "register: starts");
         mAuth.fetchProvidersForEmail(email).addOnCompleteListener(
                 new OnCompleteListener<ProviderQueryResult>() {
@@ -201,16 +197,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     public void onComplete(@NonNull Task<ProviderQueryResult> task) {
                         showProgress(false);
                         //Email is already in the database or wrong password
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Log.d(TAG, "onComplete: email found");
-                            if(task.getResult().getProviders().size() > 0){
+                            if (task.getResult().getProviders().size() > 0) {
                                 Snackbar.make(
                                         mLoginFormView,
                                         R.string.email_in_use,
                                         Snackbar.LENGTH_LONG
                                 ).show();
-                            }
-                            else{
+                            } else {
                                 //email is new, creating a new user
                                 mAuth.createUserWithEmailAndPassword(email, password)
                                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
@@ -248,7 +243,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     //Moving on to the toDoItems activity
-    private void goToTaskActivity(){
+    private void goToTaskActivity() {
         Intent intent = new Intent(this, ToDoItemActivity.class);
         startActivity(intent);
     }
@@ -346,7 +341,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         };
 
         int ADDRESS = 0;
-        int IS_PRIMARY = 1;
     }
 
     private void populateAutoComplete() {

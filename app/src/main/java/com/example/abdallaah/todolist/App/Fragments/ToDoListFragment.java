@@ -46,7 +46,6 @@ public class ToDoListFragment extends Fragment implements
     private FirebaseDatabase firebaseDatabase;
 
 
-
     public ToDoListFragment() {
         // Required empty public constructor
     }
@@ -66,7 +65,7 @@ public class ToDoListFragment extends Fragment implements
 
         //set up recycle view for the ToDoItem list
         userName = view.findViewById(R.id.username);
-        recyclerView =  view.findViewById(R.id.tasks_list_recycler);
+        recyclerView = view.findViewById(R.id.tasks_list_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //starting gesture detector
@@ -76,7 +75,6 @@ public class ToDoListFragment extends Fragment implements
         refreshList();
         return view;
     }
-
 
 
     @Override
@@ -106,10 +104,10 @@ public class ToDoListFragment extends Fragment implements
         //get all information for the ToDoItemDetailsFragment
         ToDoItemDetailsFragment toDoItemDetailsFragment
                 = ToDoItemDetailsFragment.newInstance(
-                        toDoItem.getTitle(),
-                        toDoItem.getDescription(),
-                        toDoItem.getDateCreated(),
-                        toDoItem.getDateRemind()
+                toDoItem.getTitle(),
+                toDoItem.getDescription(),
+                toDoItem.getDateCreated(),
+                toDoItem.getDateRemind()
         );
 
         //go to the ToDoItemDetailsFragment
@@ -149,7 +147,7 @@ public class ToDoListFragment extends Fragment implements
     }
 
     //method used for updating the list
-    private void refreshList(){
+    private void refreshList() {
         toDoList = new ArrayList<>();
         firebaseDatabase.
                 getReference("users").
@@ -179,7 +177,7 @@ public class ToDoListFragment extends Fragment implements
     }
 
     //this method deletes a ToDoItem based on the id
-    private void deleteToDoItem(int id){
+    private void deleteToDoItem(int id) {
 
         //requires a final variable for inner class access
         final int access_id = id;
@@ -192,7 +190,7 @@ public class ToDoListFragment extends Fragment implements
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         //delete the ToDoItem based on id
-                        dataSnapshot.getRef().child(access_id+"").removeValue();
+                        dataSnapshot.getRef().child(access_id + "").removeValue();
                     }
 
                     @Override
@@ -209,7 +207,7 @@ public class ToDoListFragment extends Fragment implements
         ArrayList<ToDo> parseToDoArray = new ArrayList<>();
         for (DataSnapshot item : dataSnapshot.getChildren()) {
 
-            if(item != null){
+            if (item != null) {
                 JSONObject object = new JSONObject((HashMap<String, String>) item.getValue());
 
                 try {

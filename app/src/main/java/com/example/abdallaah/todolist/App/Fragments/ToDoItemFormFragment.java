@@ -113,7 +113,6 @@ public class ToDoItemFormFragment extends Fragment {
         int id;
         try {
             id = (ToDoListFragment.toDoList.get(ToDoListFragment.toDoList.size() - 1)).getId() + 1;
-
         }
         //this scenario only appears when user has deleted all toDoItems so 0 is a valid number
         catch (Exception e){
@@ -123,7 +122,7 @@ public class ToDoItemFormFragment extends Fragment {
         //create the new ToDoItem
         ToDo newToDo = new ToDo(title, null, description, remind, id);
 
-        //save in firebase
+        //save in fire base
         FirebaseDatabase.getInstance().
                 getReference("users").
                 child(LoginActivity.current_user.getUid()).

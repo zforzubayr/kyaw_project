@@ -9,11 +9,12 @@ import android.view.MotionEvent;
 import android.view.View;
 
 //this class and interface is used for gestures inside the recycler view
-public class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchListener{
+public class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchListener {
     private static final String TAG = "RecyclerItemClickListen";
 
-    public interface OnRecyclerClickListener{
+    public interface OnRecyclerClickListener {
         void onItemClick(View view, int position);
+
         void onItemLongClick(View view, int position);
     }
 
@@ -25,12 +26,12 @@ public class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchLis
 
         //initialize the private variables
         this.mListener = mListener;
-        mGestureDetector = new GestureDetectorCompat(context, new GestureDetector.SimpleOnGestureListener(){
+        mGestureDetector = new GestureDetectorCompat(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
                 Log.d(TAG, "onSingleTapUp: starts");
                 View childView = recyclerview.findChildViewUnder(e.getX(), e.getY());
-                if(childView != null && mListener != null){
+                if (childView != null && mListener != null) {
                     mListener.onItemClick(childView, recyclerview.getChildAdapterPosition(childView));
                 }
                 return true;
@@ -40,7 +41,7 @@ public class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchLis
             public void onLongPress(MotionEvent e) {
                 Log.d(TAG, "onLongPress: started");
                 View childView = recyclerview.findChildViewUnder(e.getX(), e.getY());
-                if(childView != null && mListener != null){
+                if (childView != null && mListener != null) {
                     Log.d(TAG, "onSingleTapUp: calling Listener.onLongPress");
                     mListener.onItemLongClick(childView, recyclerview.getChildAdapterPosition(childView));
                 }

@@ -12,10 +12,10 @@ import android.widget.TextView;
 import com.example.abdallaah.todolist.R;
 
 
-//this fragment displays ToDoItems stored in firebase
+//this fragment displays ToDoItems stored in fire base
 public class ToDoItemDetailsFragment extends Fragment {
 
-    //these attributes are displayed
+    //these attributes are displayed in a ToDoItem fragment
     private static final String ARG_title = "title";
     private static final String ARG_description = "description";
     private static final String ARG_dateCreated = "dateCreated";
@@ -24,8 +24,7 @@ public class ToDoItemDetailsFragment extends Fragment {
     private String mTitle;
     private String mDescription;
     private String mDateCreated;
-    private String mdateRemind;
-
+    private String mDateRemind;
 
     private OnFragmentInteractionListener mListener;
 
@@ -34,7 +33,7 @@ public class ToDoItemDetailsFragment extends Fragment {
     }
 
     public static ToDoItemDetailsFragment newInstance(
-            String title, 
+            String title,
             String description,
             String dateCreated,
             String dateRemind) {
@@ -55,7 +54,7 @@ public class ToDoItemDetailsFragment extends Fragment {
             mTitle = getArguments().getString(ARG_title);
             mDescription = getArguments().getString(ARG_description);
             mDateCreated = getArguments().getString(ARG_dateCreated);
-            mdateRemind = getArguments().getString(ARG_dateRemind);
+            mDateRemind = getArguments().getString(ARG_dateRemind);
         }
     }
 
@@ -74,11 +73,10 @@ public class ToDoItemDetailsFragment extends Fragment {
         descriptionText.setText(mDescription);
         dateCreatedText.setText(getString(R.string.task_crated) + " " + mDateCreated);
 
-        if(mdateRemind.length() == 10){
-            dateRemindText.setText("Remind on " + mdateRemind);
-        }
-        else{
-            dateRemindText.setText(mdateRemind);
+        if (mDateRemind.length() == 10) {
+            dateRemindText.setText("Remind on " + mDateRemind);
+        } else {
+            dateRemindText.setText(mDateRemind);
         }
 
         return view;

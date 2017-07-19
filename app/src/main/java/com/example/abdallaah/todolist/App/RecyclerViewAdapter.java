@@ -14,7 +14,7 @@ import com.example.abdallaah.todolist.R;
 import java.util.List;
 
 //adapter class for the recycler view
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ToDoHolder>{
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ToDoHolder> {
     private List<ToDo> mToDoList;
     private Context mContext;
 
@@ -32,19 +32,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ToDoHolder holder, int position) {
 
-        if(mToDoList == null || mToDoList.size() == 0){
+        if (mToDoList == null || mToDoList.size() == 0) {
             holder.thumbnail.setImageResource(R.drawable.todo);
             holder.title.setText(R.string.no_todo);
-        }
-        else {
+        } else {
             ToDo toDoItem = mToDoList.get(position);
             holder.thumbnail.setImageResource(R.drawable.tasks);
             holder.title.setText(toDoItem.getTitle());
             String remindData = toDoItem.getDateRemind();
-            if(remindData.length() > 7) {
+            if (remindData.length() > 7) {
                 remindData = "Reminder set on " + " " + remindData;
-            }
-            else {
+            } else {
                 remindData = "No reminder set";
             }
             holder.dateRemind.setText(remindData);
@@ -55,11 +53,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return ((mToDoList != null )&&(mToDoList.size() > 0) ? mToDoList.size() : 0);
+        return ((mToDoList != null) && (mToDoList.size() > 0) ? mToDoList.size() : 0);
     }
 
     //holder class for recycler view
-    static class ToDoHolder extends RecyclerView.ViewHolder{
+    static class ToDoHolder extends RecyclerView.ViewHolder {
         TextView title = null;
         TextView dateCreated = null;
         TextView dateRemind = null;

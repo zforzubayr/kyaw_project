@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".App.Activities.LoginActivity"
-            android:label="@string/app_name">
+            android:label="">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,7 +25,7 @@
         </activity>
         <activity
             android:name=".App.Activities.ToDoItemActivity"
-            android:label="@string/title_activity_to_do_item"
+            android:label=""
             android:theme="@style/AppTheme.NoActionBar">
             android:windowSoftInputMode="adjustResize|stateHidden"
         </activity>

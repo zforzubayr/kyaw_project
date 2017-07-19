@@ -7,8 +7,6 @@
     <color name="button_color">#64B5F6</color>
     <color name="textColorPrimary">#000000</color>
     <color name="rowColor">#E0F7FA</color>
-    <color name="recycleColor">#80DEEA</color>
-    <color name="toDoActivityColor">#B2DFDB</color>
-
-
+    <color name="recycleColor">#b2ebf2</color>
+    <color name="toDoActivityColor">#E0F7FA</color>
 </resources>
