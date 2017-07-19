@@ -74,34 +74,10 @@ public class ToDoListFragment extends Fragment implements
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), recyclerView, this));
 
         refreshList();
-
-//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//        StationsFragment stationsFragment1;
-//        StationsFragment stationsFragment2;
-//        StationsFragment stationsFragment3;
-//
-//        stationsFragment1 = StationsFragment.newInstance(StationsFragment.STATION_TYPE_FEATURED);
-//        fragmentManager.beginTransaction().add(R.id.container_top_row, stationsFragment1).commit();
-//
-//        stationsFragment2 = StationsFragment.newInstance(StationsFragment.STATION_TYPE_PARTY);
-//        fragmentManager.beginTransaction().add(R.id.container_middle_row, stationsFragment2).commit();
-//
-//        stationsFragment3 = StationsFragment.newInstance(StationsFragment.STATION_TYPE_RECENT);
-//        fragmentManager.beginTransaction().add(R.id.container_bottom_row, stationsFragment3).commit();
-//
-//        Log.d(TAG, "onCreateView: ends");
-//
-//        Log.d(TAG, "onCreateView() returned: " + view);
         return view;
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        refreshList();
-//    }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -155,8 +131,6 @@ public class ToDoListFragment extends Fragment implements
                         recyclerView.setAdapter(recyclerViewAdapter);
                     }
 
-//                    {name=zubair, todolist=[{title=new, desc=testing new}, {title=new 2, desc=testing new 2}]}
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
@@ -207,7 +181,6 @@ public class ToDoListFragment extends Fragment implements
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }
