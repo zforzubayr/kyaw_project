@@ -35,6 +35,7 @@
     <string name="task_crated">Task created on</string>
     <string name="no_reminder">No reminder set</string>
     <string name="dummy">dummy</string>
+    <string name="no_items_list">You have no tasks scheduled. Click on the + icon on top to add a new item.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

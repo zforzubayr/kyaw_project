@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,6 +46,7 @@ public class ToDoListFragment extends Fragment implements
     private RecyclerView recyclerView;
     private TextView userName;
     private FirebaseDatabase firebaseDatabase;
+    private ConstraintLayout listConstraintLayout;
 
 
     public ToDoListFragment() {
@@ -62,7 +65,7 @@ public class ToDoListFragment extends Fragment implements
         Log.d(TAG, "onCreateView: starts");
         firebaseDatabase = FirebaseDatabase.getInstance();
         View view = inflater.inflate(R.layout.fragment_to_do_item, container, false);
-
+        listConstraintLayout = view.findViewById(R.id.listConstraintLayout);
         //set up recycle view for the ToDoItem list
         userName = view.findViewById(R.id.username);
         recyclerView = view.findViewById(R.id.tasks_list_recycler);
@@ -166,6 +169,14 @@ public class ToDoListFragment extends Fragment implements
                         //update the adapter
                         recyclerViewAdapter = new RecyclerViewAdapter(toDoList, getContext());
                         recyclerView.setAdapter(recyclerViewAdapter);
+
+                        if(toDoList.size() == 0){
+                            Snackbar.make(
+                                    listConstraintLayout,
+                                    R.string.no_items_list,
+                                    Snackbar.LENGTH_LONG
+                            ).show();
+                        }
                     }
 
                     @Override
@@ -237,6 +248,8 @@ public class ToDoListFragment extends Fragment implements
         super.onResume();
         refreshList();
     }
+
+
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
